@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXAMPLE FORM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    
+    <div class="wrap">
+        <h1>Example form</h1>
+
+        <div class="console">
+            <p>All: <span>12</span></p>
+            <p>Need: <span>7</span></p>
+            <p>Success: <span class="success">0</span>/12</p>
+            <p>Error: <span class="error">0</span>/12</p>
+        </div>
+
+
+        <form name="login">
+            <div class="form-wrap">
+
+                <div class="input">
+                    <label class="required-label regexLabel" for="name"> Name <br>
+                        <input class="required nameRegex" id="name" type="text" name="name">
+                        <img class="error-icon error-icon-regex" id="name-icon" src="./error warning.svg" alt="">
+                        <p class="input-p p-regex">need to fill</p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label class="required-label" for="age"> Age <br>
+                        <input class="required" id="age" type="number" name="age"> 
+                        <img class="error-icon" src="./error warning.svg" alt="">
+                        <p class="input-p">need to fill</p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label for="name" class="regexLabel"> Surname <br>
+                        <input class="nameRegex" id="name" type="text" name="surname"> 
+                        <img class="error-icon-regex" src="./error warning.svg" alt="">
+                        <p class="p-regex"></p>
+
+                    </label>
+                </div>
+                <div class="input">
+                    <label class="required-label" for="about"> About You <br>
+                        <input class="required" id="about" type="text" name="about"> 
+                        <img class="error-icon" src="./error warning.svg" alt="">
+                        <p class="input-p">need to fill</p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label class="required-label email-label" for="email"> Email Adress <br>
+                        <input class="required emailRegex" id="email" type="text" name="email"> 
+                        <img class="error-icon email-icon" src="./error warning.svg" alt="">
+                        <p class="input-p p-email">need to fill</p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label class="required-label" for="js"> What is JavaScript? <br>
+                        <input class="required" id="js" type="text" name="js"> 
+                        <img class="error-icon" src="./error warning.svg" alt="">
+                        <p class="input-p">need to fill</p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label class="phone-label" for="phone"> Phone Number <br>
+                        <input class="phoneRegex" id="phone" type="text" name="phone"> 
+                        <img class="error-icon-phone" src="./error warning.svg" alt="">
+                        <p class="p-phone">need to fill</p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label class="required-label" for="html"> What is HTML? <br>
+                        <input class="required" id="html" type="text" name="html"> 
+                        <img class="error-icon" src="./error warning.svg" alt="">
+                        <p class="input-p">need to fill</p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label for="mom" class="regexLabel"> Your Mom’s name <br>
+                        <input class="nameRegex" id="mom" type="text"> 
+                        <img class="error-icon-regex" src="./error warning.svg" alt="">
+                        <p class="p-regex"></p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label class="required-label" for="css"> What is CSS? <br>
+                        <input class="required" id="css" type="text" name="css"> 
+                        <img class="error-icon" src="./error warning.svg" alt="">
+                        <p class="input-p">need to fill</p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label for="pap" class="regexLabel"> Your Pap’s name <br>
+                        <input class="nameRegex" id="pap" type="text" name="dad">
+                        <img class="error-icon-regex" src="./error warning.svg" alt="">
+                        <p class="p-regex"></p>
+                    </label>
+                </div>
+                <div class="input">
+                    <label for="car"> Your favourite car <br>
+                        <input id="car" type="text" name="car"> 
+                        <img class="error-icon" src="./error warning.svg" alt="">
+                    </label>
+                </div>
+
+
+            </div>
+            <div class="submit-box">
+                <button class="submit">Save changes</button>
+            </div>
+
+        </form>
+
+
+
+    </div>
+
+
+
+
+    <script src="./script.js"></script>
+</body>
+</html>
