@@ -1,149 +1,84 @@
-let inputs = document.querySelectorAll('input')
-let requirs = document.querySelectorAll('.required')
-let form = document.forms.login
+
+let form = document.forms.login;
+let inputs = document.querySelectorAll("input.required");
+let inputs2 = document.querySelectorAll("input");
+let succes = document.querySelector('.success')
+let error = document.querySelector('.error')
+let succesNum = 0
+let errorNum = 0
 
 
-let error = document.querySelector('.error');
-let errorJs = 0
-let success = document.querySelector('.success');
-let successJs = 12
+let regEx = {
+	name: /^[a-zA-Z]+$/,
+	age: /^[0-9]{1,3}$/,
+	about: /^[a-zA-Z\s]+$/,
+	email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+	js: /^[a-zA-Z]+$/,
+	html: /^[a-zA-Z]+$/,
+	css: /^[a-zA-Z]+$/,
+};
 
-let labels = document.querySelectorAll('.required-label')
-let regexLabels = document.querySelectorAll('.regexLabel')
-let pAll = document.querySelectorAll('.input-p')
-let pRegex = document.querySelectorAll('.p-regex')
-let erroricons = document.querySelectorAll('.error-icon')
-let errorRegexIcons = document.querySelectorAll('.error-icon-regex')
+form.onsubmit = (e) => {
+	e.preventDefault();
 
-let loading = document.querySelector('.box')
-let spin = document.querySelector('.circle')
+	let obj = {};
+	let fm = new FormData(form);
 
-let nameRegexes = document.querySelectorAll('.nameRegex')
+	fm.forEach((value, key) => {
+		obj[key] = value;
+	});
 
-let phoneRegex = document.querySelector('.phoneRegex')
-let phoneLabel = document.querySelector('.phone-label')
-let pPhone = document.querySelector('.p-phone')
-let phoneIcon = document.querySelector('.error-icon-phone')
+	validateInputs();
+	console.log(obj);
+};
 
-let emailRegex = document.querySelector('.emailRegex')
-let emailLabel = document.querySelector('.email-label')
-let pEmail = document.querySelector('.p-email')
-let emailIcon = document.querySelector('.email-icon')
+let errorp = document.querySelectorAll('.input-p')
 
-let nameErrorIcon = document.querySelector('#name-icon')
 
-form.onsubmit = (event) => {
-    event.preventDefault();
-    requirs.forEach((inp, idx) => {
-        if (inp.value.length === 0) {
-            errorJs++
-            inp.classList.add('required-error')
-            labels[idx].classList.add('required-label-error')
-            pAll[idx].classList.add('p-error')
-            pAll[idx].innerHTML = 'Please enter your email adress'
-            erroricons[idx].classList.remove('error-icon')
-            nameErrorIcon.classList.remove('error-icon-regex')
+function validateInputs() {
+    let informationDiv = document.querySelector('.information');
+    let informationHTML = '';
+    let allInputsValid = true;
+    errorNum = 0;
+    succesNum = 0;
 
-            error.innerHTML = errorJs
-            success.innerHTML = successJs - errorJs
+    inputs.forEach((inp, i) => {
+        let id = inp.id;
+        if (inp.value.trim() === "") {
+            inp.style.border = '1px solid red';
+            errorp[i].classList.add('error-p');
+            errorp[i].innerHTML = 'Заполните полe!';
+            allInputsValid = false;
+            errorNum++;
         } else {
-            inp.classList.remove('required-error')
-            labels[idx].classList.remove('required-label-error')
-            pAll[idx].classList.remove('p-error')
-            pAll[idx].innerHTML = 'Need to fill'
-            erroricons[idx].classList.add('error-icon')
-            nameErrorIcon.classList.add('error-icon-regex')
-        }
-    })
-
-    nameRegexes.forEach((inp, idx) => {
-        if (inp.value.length > 0) {
-            if (!/^[a-z ,.'-]+$/i.test(inp.value)) {
-                errorJs++
-                error.innerHTML = errorJs
-                success.innerHTML = successJs - errorJs
-                inp.classList.add('required-error-regex')
-                pRegex[idx].classList.add('p-error-regex')
-                regexLabels[idx].classList.add('regex-label-error')
-                pRegex[idx].innerHTML = 'Не должно содержать "0-9, !@#$%^..."'
-                errorRegexIcons[idx].classList.remove('error-icon-regex')
-
+            if (regEx[id].test(inp.value)) {
+                errorp[i].classList.add('error-p1');
+                errorp[i].innerHTML = 'Отлично!';
+                inp.style.border = '1px solid blue';
+                succesNum++; 
             } else {
-                inp.classList.remove('required-error-regex')
-                pRegex[idx].classList.remove('p-error-regex')
-                regexLabels[idx].classList.remove('regex-label-error')
-                pRegex[idx].innerHTML = 'Отлично'
-                errorRegexIcons[idx].classList.add('error-icon-regex')
+                errorp[i].innerHTML = 'Ошибка';
+				errorp[i].style.color = 'red'
+                if (id === 'email' && !inp.value.includes('@')) {
+                    errorp[i].innerHTML = 'Почта должна содержать @ и ".com" ".ru"... ';
+                    errorp[i].style.color = 'red'
+                } else if (id === 'name' && !regEx[id].test(inp.value)) {
+                    errorp[i].innerHTML = 'Введите правильное имя!';
+                    errorp[i].style.color = 'red'
+                }
+                errorNum++;
             }
         }
-    })
 
-    if (emailRegex.value.length > 0) {
-        if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(emailRegex.value)) {
-            errorJs++
-            error.innerHTML = errorJs
-            success.innerHTML = successJs - errorJs
+        informationHTML += `<p>${id}: ${inp.value}</p>`;
+    });
 
-            emailRegex.classList.add('required-error-email')
-            pEmail.classList.add('p-email-error')
-            emailLabel.classList.add('email-label-error')
-            pEmail.innerHTML = 'Должно содержать "@..., .com,uz,ru...."'
-            emailIcon.classList.remove('error-email-icon')
-        } else {
-            emailRegex.classList.remove('required-error-email')
-            pEmail.classList.remove('p-email-error')
-            emailLabel.classList.remove('email-label-error')
-            pEmail.innerHTML = 'Отлично!'
-            emailIcon.classList.add('error-email-icon')
-        }
-    }
+    if (!allInputsValid) {
+        informationHTML = '<p style="color: red;" >Не все поля заполнены!</p>';
+    } 
 
-    if(phoneRegex.value.length > 0) {
-        if(!/^9989[012345789][0-9]{7}$/.test(phoneRegex.value)) {
-            errorJs++
-            error.innerHTML = errorJs
-            success.innerHTML = successJs - errorJs
-
-            phoneRegex.classList.add('required-error-phone')
-            pPhone.classList.add('p-phone-error')
-            phoneLabel.classList.add('phone-label-error')
-            pPhone.innerHTML = 'Должно начинаться с 9989(0-9)'
-            phoneIcon.classList.remove('error-icon-phone')
-        } else {
-            phoneRegex.classList.remove('required-error-phone')
-            pPhone.classList.remove('p-phone-error')
-            phoneLabel.classList.remove('phone-label-error')
-            pPhone.innerHTML = 'Отлично!'
-            phoneIcon.classList.add('error-icon-phone')
-        }
-    }
-
-    if (errorJs === 0) {
-        error.innerHTML = 0
-        success.innerHTML = 12
-    }
-
-    if (!errorJs > 0) {
-        submit()
-
-
-    } else {
-        alert('form incorrect!')
-    }
-
-    errorJs = 0
-}
-
-
-function submit() {
-    let user = {}
-
-    let fm = new FormData(form)
-
-    fm.forEach((value, key) => {
-        user[key] = value
-
-    })
-    console.log(user);
-
+    informationDiv.innerHTML = informationHTML;
+	
+	succes.innerHTML = succesNum
+	error.innerHTML = errorNum
 }

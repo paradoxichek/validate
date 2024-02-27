@@ -246,3 +246,29 @@ form .submit-box .submit {
     opacity: 0;
   }
 }
+
+
+.error-p{
+  color: red !important ; 
+font-weight: 500;
+font-size: 12px;
+}
+
+
+
+.error-p1{
+  color: rgb(0, 255, 4) !important ; 
+font-weight: 500;
+font-size: 12px;
+}
+
+.flex32{
+  display: flex;
+  justify-content: center;
+
+}
+
+.information{
+font-size: 15px;
+
+}
